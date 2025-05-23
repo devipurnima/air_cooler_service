@@ -44,6 +44,7 @@ export const defaultUser = async(req,res)=>{
 export const login = async(req,res)=>{
     
     const {email,password} = req.body;
+    console.log("🐿️ email,password", email,password);
 
     const existingUser = await userModel.findOne({email:email});
 

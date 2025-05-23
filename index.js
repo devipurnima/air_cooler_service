@@ -10,6 +10,7 @@ import userRouter from "./routers/userRouter.js"
 import roleRouter from "./routers/roleRouter.js"
 import siteRouter from "./routers/siteRouter.js"
 import wareHouseRouter from "./routers/wareHouseRouter.js";
+import serviceRouter from "./routers/serviceRouter.js";
 import { defaultUser } from "./controllers/authContoller.js";
 // configure dotenv
 dotenv.config();
@@ -36,6 +37,7 @@ app.use("/api/users",userRouter);
 app.use("/api/roles",roleRouter );
 app.use("/api/sites", siteRouter);
 app.use("/api/warehouses",wareHouseRouter);
+app.use("/api/services",serviceRouter)
 app.use("/test",async(req,res)=>{
     res.send("Ok");
 });
