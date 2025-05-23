@@ -5,7 +5,7 @@ import userModel from "../model/userModel.js";
 export const createUser = async(req,res)=>{
    try{ 
     const {name,role, email, password, mobile, address} = req.body;
-    const { profile } = req.file;
+    const profile  = req.file;
 
    if(!email)
     {

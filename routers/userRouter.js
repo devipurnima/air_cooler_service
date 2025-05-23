@@ -7,21 +7,26 @@ import multer from 'multer';
 import fs from "fs";
 
 const storage = multer.diskStorage({
-    destination:function(req,file,cb){
-        const uploadDir = "uploads/users/";
-        if(!fs.existsSync(uploadDir))
-        {
-            mkdirSync(uploadDir, {recursive:true});
-        }
-        cb(null, uploadDir)
-    },
-    filename:function(req,file,cb){
-        const uniqfileName = new Date().toISOString();
-        cb(null, `${uniqfileName}-${file.originalname}` );
+  destination: function (req, file, cb) {
+    const uploadDir = "uploads/users/";
+    // Check if the directory exists, if not, create it
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
     }
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    //
+    const currentDate = new Date()
+      .toISOString()
+      .replace(/:/g, "-")
+      .replace(/\./g, "-");
+    const uniqueFilename = `${currentDate}_${file.originalname}`;
+    cb(null, uniqueFilename);
+  },
 });
 
-const upload = multer({storage:storage})
+const upload = multer({ storage: storage });
 
 router.post("/user",requireSignIn,upload.single("profile"),createUser);
 router.post("/create-many",requireSignIn, createUserByExcel);
